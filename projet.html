@@ -1,0 +1,1042 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style></style></head><body><u></u>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+
+
+<div class="m_container-fluid m_main-container">
+
+
+
+
+<div class="m_fluid-row" id="m_header">
+
+
+
+<h1 class="m_title m_toc-ignore">Projet relatif au module Approches spatiales et temporelles des données</h1>
+<h4 class="m_author">Mathilde Beucher &amp; Christine Fouque</h4>
+<h4 class="m_date">25/08/2020</h4>
+
+</div>
+
+
+<div id="m_pour-lancer-letude-en-automatique" class="m_section m_level5">
+<h5>pour lancer l’etude en “automatique” :</h5>
+<p><em>Selection de la zone d’etude :</em> La variable zone permet de 
+recuperer les bases de données avec les données correspondant à la zone 
+d’etude L’utilisateur peut choisir entre : -“Nantes” pour Nantes 
+-“Metropole” pour la métropole de Nantes -“dep” pour le departement de 
+la Loire- Atlantique</p>
+<pre class="m_r"><code>zone &lt;- "Metropole"</code></pre>
+</div>
+<div id="m_partie-1-objectifs" class="m_section m_level2">
+<h2>PARTIE 1 : OBJECTIFS</h2>
+<p>Cette étude a pour but de montrer si la construction des logements 
+sociaux ces dernières années a contribué à la mixité sociale dans le 
+département. L’objectif est d’observer l’implantation des logements 
+sociaux sur notre périmètre d’étude. A l’aide de cartes, nous pourrons 
+avoir une vision spatiale de la répartition géographique des logements 
+sociaux. Les graphiques permettront de croiser les différents 
+indicateurs que nous utilisons pour montrer si la construction des 
+logements sociaux a permis la mixité sociale.</p>
+<p>Pour cela nous avons travaillé sur les deux sources mis à notre disposition :</p>
+<ul>
+<li><p>Les données carroyées de l’INSEE qui donne par carreaux de 200 
+mètres des indicateurs sur le niveau de vie des habitants : Ces données 
+seront principalement utilisées pour observer la répartition des 
+logements sociaux sur le territoire et l’évolution des implantations de 
+ceux-ci.</p></li>
+<li>Les données du parc locatif social géolocalisées à jour du 1er 
+janvier 2019 qui permet de localiser les logements sociaux. Pour 
+observer la mixité sociale au sein d’une zone, nous avons choisi de 
+travailler sur les 5 indicateurs géolocalisés suivants:</li>
+<li>le niveau de vie Niveau de vie des habitants (Men_Pauv, Ind_snv ),</li>
+<li>leurs classes d’âge,</li>
+<li>le statut d’occupation (propriétaires / locataires),</li>
+<li>la Nature du local (logement collectif ou individuel),</li>
+<li><p>les Ménages monoparentaux.</p></li>
+</ul>
+</div>
+<div id="m_partie-2-methodes" class="m_section m_level2">
+<h2>PARTIE 2 : METHODES</h2>
+<div id="m_description-du-corpus" class="m_section m_level3">
+<h3>DESCRIPTION DU CORPUS</h3>
+<div id="m_la-bibliographie" class="m_section m_level4">
+<h4>La bibliographie</h4>
+<p>Les documents se trouvent dans le répertoire :<code>/doc</code></p>
+<p>Dans ce répertoire, des documents sur différentes études sont 
+répertoriés. Les études sur la mixité sociale, les logements sociaux… 
+Elles nous ont permis d’obtenir des informations pour comprendre le 
+contexte de l’étude.</p>
+<p>Les sources sont variées : Fondation Charles Léopold Mayer pour le 
+progrès de l’homme, La Fondation Abbé Pierre, Julien Damon (chef du 
+département questions sociales au Centre d’analyse stratégique et 
+professeur associé à Sciences Po (cycle d’aménagement et d’urbanisme) , 
+Victor Rainaldi (Journaliste pour Actualités Habitat) ou encore le 
+Ministère du Logement, de l’Égalité des territoires et de la Ruralité.</p>
+<p>Nous y avons appris que depuis 2000, la loi Solidarité et 
+renouvellement urbain (SRU) impose un minimum de 20 % de logements 
+sociaux dans toutes les communes des agglomérations de plus de 50 000 
+habitants. Nous y avons également trouvé une définition de la mixité 
+sociale :“La mixité sociale est à la fois un état : la cohabitation sur 
+un même territoire de groupes sociaux aux caractéristiques diverses, et 
+un processus : le fait de faciliter la cohabitation sur un même 
+territoire de groupes divers par l’âge, la nationalité, le statut 
+professionnel, les revenus afin d’avoir une répartition plus équilibrée 
+des populations.” (Fondation Charles Léopold Mayer pour le progrès de 
+l’homme). Le problème de la mixité sociale est bien plus complexe qu’ 
+’il en a l’air. Les mesures prises pour celle-ci menaceraient le droit 
+au logement des plus pauvres. En effet, selon Pierre Duquesne (Humanité,
+ 2016) “pour mieux éparpiller les pauvres”, les foyers aux revenus les 
+plus faibles se voient l’accès au HLM refusé.</p>
+</div>
+<div id="m_les-données" class="m_section m_level4">
+<h4>Les données</h4>
+<p>Les bases de données brutes sont téléchargées puis enregistrées dans le répertoire <code>/extdata</code>.</p>
+<p><em>Les données carroyées Insee basé sur les revenus de 2015</em></p>
+<p>-url : <a href="https://www.google.com/url?q=https://www.insee.fr/fr/statistiques/4176290?sommaire%3D4176305%23consulter&amp;source=gmail-html&amp;ust=1643905388610000&amp;usg=AOvVaw1pWXTyBjFX1WAqqRGSOD4X" class="m_uri" target="_blank" rel="noreferrer">https://www.insee.fr/fr/<wbr>statistiques/4176290?sommaire=<wbr>4176305#consulter</a></p>
+<p>La base se trouve dans le répertoire <code>/extdata/Filisofi2015_<wbr>carreaux_200m_metropole_csv</code>.</p>
+<p>Le champ géographique est constitué de la France métropolitaine.</p>
+<p>Ces données proviennent du dispositif sur les revenus localisés 
+sociaux et fiscaux (FiLoSoFi ou FIchier LOcalisé SOcial et FIscal) de 
+2015. Cette base est élaborée à partir des revenus perçus en 2015 qui 
+ont été déclarés en 2016 et de la taxe d’habitation au 1er janvier 2016.
+ Un ménage fiscal correspond à une déclaration des revenus de l’année N 
+(un, deux foyers fiscaux ou plus) et l’occupation d’un même logement 
+connu à la taxe d’habitation au 1er janvier de l’année N+1. Par 
+rapprochement de fichiers (impôts, prestations sociales…), il est 
+possible d’en tirer des observations sur le revenu disponible des 
+ménages, les caractéristiques sociodémographiques ou les 
+caractéristiques au niveau des logements occupés.</p>
+<p>La base contient 26 variables concernant l’âge des individus, les 
+caractéristiques des ménages et des logements et les revenus perçus au 
+cours de l’année 2015.</p>
+<p>Le dictionnaire des données se trouve dans le répertoire :<code>doc/variables_<wbr>donnéesCarroyees.docx</code>.</p>
+<p><em>Le répertoire des logements locatifs des bailleurs sociaux de 2019</em></p>
+<p>-url :<a href="https://www.google.com/url?q=https://www.data.gouv.fr/fr/datasets/repertoire-des-logements-locatifs-des-bailleurs-sociaux/%23_&amp;source=gmail-html&amp;ust=1643905388610000&amp;usg=AOvVaw2YiKlFFjWmL3jaOXqSzgA2" class="m_uri" target="_blank" rel="noreferrer">https://www.data.gouv.fr/fr/<wbr>datasets/repertoire-des-<wbr>logements-locatifs-des-<wbr>bailleurs-sociaux/#_</a></p>
+<p>La base se trouve dans le répertoire <code>/extdata/rpls_geoloc_2019</code></p>
+<p>Le répertoire du parc locatif social des bailleurs sociaux (ou RPLS) 
+renferme des informations sur chaque logement du parc social des 
+bailleurs. Le but est de dresser l’état global du parc de logements 
+locatifs de ces bailleurs sociaux au 1er janvier d’une année. Il est mis
+ a jour tous les ans depuis 2011. Il permet également de connaitre les 
+mouvements l’ayant affecté dans l’année (nouvelles constructions, 
+réhabilitation, ventes…).</p>
+<p>Cette mise à disposition répond aux attentes du décret n°2009-1485 du
+ 2 décembre 2009 relatif au répertoire des logements locatifs des 
+bailleurs sociaux.</p>
+<p>La base est composée de 74 variables qui fournissent des données pour
+ chaque logement du parc social : adresse, caractéristiques du logement,
+ informations liées à la location,…</p>
+<p>Le dictionnaire des données se trouve dans le répertoire :<code>doc/dictionnaire_rpls_<wbr>geolocalise_2019.xlsx</code>.</p>
+</div>
+</div>
+<div id="m_outils-les-packages-et-librairies-choisis" class="m_section m_level3">
+<h3>OUTILS : Les packages et librairies choisis</h3>
+<p><em>Packrat</em></p>
+<p>L’utilisation de packrat pour ce projet a 3 principales raisons :</p>
+<p>*** Isolement:** l’installation d’un nouveau package ou une mis à 
+jour pour ce projet n’interrompra pas d’autres projets. Chaque projet a 
+sa propre bibliothèque de packages privée.</p>
+<p>*** Portabilité:** permet de visualiser notre projet sur un autre ordinateur ou une autre plateforme.</p>
+<p>*** Reproductibilité:** Packrat enregistre les versions exactes des 
+packages et garantit ainsi que ces versions sont celles qui sont 
+installées partout où vous allez.</p>
+<pre class="m_r"><code># install.packages("packrat")
+# library(packrat)
+# packrat::init()</code></pre>
+<p><em>tidyverse</em> Le tidyverse est un ensemble de packages qui 
+fonctionnent en harmonie. Ils partagent des représentations de données 
+communes et une conception API. Ce package permet de récupérer en une 
+fois plusieurs packages et est conçu pour faciliter l’installation et le
+ chargement de plusieurs paquets tidyverse en une seule étape.</p>
+<pre class="m_r"><code># install.packages('tidyverse')
+library(tidyverse)</code></pre>
+<pre><code>## Warning: package 'tidyverse' was built under R version 3.6.3</code></pre>
+<pre><code>## -- Attaching packages ------------------------------<wbr>--------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
+## v tibble  3.0.3     v dplyr   1.0.1
+## v tidyr   1.1.0     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0</code></pre>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.6.3</code></pre>
+<pre><code>## Warning: package 'tibble' was built under R version 3.6.3</code></pre>
+<pre><code>## Warning: package 'readr' was built under R version 3.6.3</code></pre>
+<pre><code>## Warning: package 'purrr' was built under R version 3.6.3</code></pre>
+<pre><code>## Warning: package 'stringr' was built under R version 3.6.3</code></pre>
+<pre><code>## Warning: package 'forcats' was built under R version 3.6.3</code></pre>
+<pre><code>## -- Conflicts ------------------------------<wbr>------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<p><em>dplyr</em> C’est une grammaire de manipulation de données, 
+fournissant des verbes facilitant les manipulations de données les plus 
+courants: * mutate () : ajoute de nouvelles variables qui sont des 
+fonctions de variables existantes. * select () : sélectionne les 
+variables en fonction de leurs noms. * filter () : sélectionne les 
+observations en fonction de leurs valeurs. * summarise (): réduit 
+plusieurs valeurs à un seul résumé. * arrange (): modifie l’ordre des 
+lignes.</p>
+<pre class="m_r"><code># install.packages(dplyr)
+library (dplyr)</code></pre>
+<p><em>mapview</em> Ce package fournit la fonction mapview() qui permet 
+de créer rapidement et facilement des visualisations interactives de 
+données spatiales. Il a été créé pour combler le manque de traçage 
+interactif rapide pour examiner et étudier visuellement les deux aspects
+ des données spatiales: les géométries et leurs attributs.</p>
+<pre class="m_r"><code># install.packages(mapview)
+library(mapview)</code></pre>
+<p><em>ggplot2</em> C’est un système de création graphique 
+“déclarative”, basé sur la grammaire de graphiques. A l’aide des données
+ fournies et d’un système de mapping, ggplot2 permet facilement de 
+réaliser de jolis graphiques.</p>
+<pre class="m_r"><code># install.packages("ggplot2")
+library(ggplot2)</code></pre>
+<p><em>SF</em> C’est un package qui permet la prise en charge de “simple
+ feature”. Sf présente de nombreux avantages: * gérer les données 
+vecteur * Standardisation: utilise un modèle standard de la géomatique. *
+ Simplification: Les données spatiales sont un data frame avec une 
+variable spécifique renseignant la géométrie. * Intégration: la synthase
+ est basé sur le même manifest que le tidiverse. Les fonctions tydiverse
+ sont compatible avec le données spatiales de classe sf. * Perfomance: 
+meilleure performance à la fois en lecture et en écriture.</p>
+<pre class="m_r"><code># install.packages(sf)
+library(sf)</code></pre>
+<pre><code>## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1</code></pre>
+<p><em>stringr</em> C’est un package qui contient un ensemble de 
+fonctions conçues pour faciliter la manipulation de chaînes les plus 
+importantes et les plus couramment utilisées.</p>
+<pre class="m_r"><code># install.packages("stringr")
+library(stringr)</code></pre>
+<p><em>data.table</em> C’est Extension de <code>data.frame</code> qui 
+permet une agrégation rapide de données volumineuses, jointures rapides 
+ordonnées, ajout / modification / suppression rapide de colonnes par 
+groupe. La principale fonction utilisée dans ce pakage est : fread. 
+C’est une fonction très pratique pour les fichiers délimités normaux; 
+c’est-à-dire où chaque ligne à le même nombre de colonnes.</p>
+<pre class="m_r"><code># install.packages("data.table")
+library(data.table)</code></pre>
+<pre><code>## Warning: package 'data.table' was built under R version 3.6.3</code></pre>
+<pre><code>## 
+## Attaching package: 'data.table'</code></pre>
+<pre><code>## The following objects are masked from 'package:dplyr':
+## 
+##     between, first, last</code></pre>
+<pre><code>## The following object is masked from 'package:purrr':
+## 
+##     transpose</code></pre>
+<p><em>Summarytools</em> Il s’agit d’un ensemble d’outils pour faire 
+facilement des summary() propres de ; bases de données, tableaux 
+croisés, tableaux de fréquences à pondération et statistiques 
+descriptives dans des tableaux concis disponibles dans une variété de 
+formats (ASCII simple, Markdown et HTML). Un bon départ pour explorer 
+les données.</p>
+<pre class="m_r"><code># install.packages("<wbr>summarytools")
+library(summarytools)</code></pre>
+<pre><code>## Warning: package 'summarytools' was built under R version 3.6.3</code></pre>
+<pre><code>## Registered S3 method overwritten by 'pryr':
+##   method      from
+##   print.bytes Rcpp</code></pre>
+<pre><code>## For best results, restart R session and update pander using devtools:: or remotes::install_github('<wbr>rapporter/pander')</code></pre>
+<pre><code>## 
+## Attaching package: 'summarytools'</code></pre>
+<pre><code>## The following object is masked from 'package:tibble':
+## 
+##     view</code></pre>
+<pre class="m_r"><code># devtools::install_github('<wbr>rapporter/pander')</code></pre>
+</div>
+<div id="m_traitements-des-donnees" class="m_section m_level3">
+<h3>TRAITEMENTS DES DONNEES</h3>
+<div id="m_import-des-deux-bases" class="m_section m_level4">
+<h4>import des deux bases</h4>
+<p><em>Les 3 zones proposées à l’études sont :</em></p>
+<ul>
+<li><p>Nantes : Le code commune INSEE est : 44109</p></li>
+<li><p>Métropole nantaise: La métropole est composée de 24 communes : 
+Basse-Goulaine, Bouaye, Bouguenais, Brains, Carquefou, Couëron, Indre, 
+La Chapelle-sur-Erdre, La Montagne, Le Pellerin, Les Sorinieres, Mauves-
+ sur- Loire, Nantes, Orvault, Rezé, Saint-Aignan-de-Grand-Lieu, 
+Saint-Herblain, Saint-Jean-de-Boiseau, Saint-Leger-les-Vignes, 
+Saint-Sébastien-sur-Loire, Sainte-Luce-sur-Loire, Sautron, 
+Thouaré-sur-Loire, Vertou.</p></li>
+<li><p>Le département de la Loire-Atlantique (44)</p></li>
+</ul>
+<p><em>La fonction filter_zone :</em> C’est une fonction de lecture des 
+données carroyées sur une commune qui permet l’importation de la base 
+avec filtrage des observations selon le(s) code(s) commune(s). Avec 
+l’ajout de coordonnées dans plusieurs colonnes elle transforme celles ci
+ en objets géométriques a l’aide du package sf. Elle se trouve dans le 
+répertoire <code>R</code>.</p>
+<pre class="m_r"><code>source('R/filtrer_zone.R')</code></pre>
+<p><em>Les fonctions selection et selection2 :</em> Ce sont des fonctions qui permettent de filtrer les bases de données sur la zone qui nous interesse.</p>
+<pre class="m_r"><code>source('R/selection.R')
+source('R/selection2.R')</code></pre>
+<p><em>Selection de la zone d’etude :</em> La variable zone permet de 
+recuperer les bases de données avec les données correspondant à la zone 
+d’etude L’utilisateur peut choisir entre : -“Nantes” pour Nantes 
+-“Metropole” pour la métropole de Nantes -“dep” pour le departement de 
+la Loire- Atlantique Elle est renseignée en haut du script pour des 
+raison de visibilité.</p>
+<pre class="m_r"><code># zone &lt;- "Metropole"
+df &lt;- selection (zone)
+rpls &lt;- selection2(zone)</code></pre>
+</div>
+<div id="m_traitement-des-données-carroyées-de-linsee-pour-les-indicateurs-sur-le-niveau-de-vie-des-habitants-par-carreaux-de-200-m" class="m_section m_level4">
+<h4>Traitement des données carroyées de l’INSEE pour les indicateurs sur le niveau de vie des habitants (par carreaux de 200 m) :</h4>
+<p><strong>Sélection des variables d’intérêt et création d’indicateurs calculés :</strong>
+ La base est composée de 40 variables, pour notre cas d’étude certaines 
+variables ne sont pas utiles. Pour observer la mixité sociale au sein 
+d’une zone, nous avons choisi de travailler sur les 5 indicateurs 
+suivants: <em>Niveau de vie (Men_Pauv) des habitants </em> leurs âges <em>le statut d’occupation (propriétaires / locataires) </em>la Nature du local (maison, logement collectif) *les Ménages monoparentaux</p>
+<p><em>les variables ne nécessitant pas de transformation</em></p>
+<pre class="m_r"><code>df_insee &lt;- df %&gt;%
+  select(Depcom, Ind, Men, Men_pauv, Log_soc, x, y, geometry)</code></pre>
+<p><em>Les variables remplacées par leur pourcentage par carreau qui est
+ bien plus représentatif et comparable d’un carreau à un autre :</em> <em>regroupement des 10 classes d’âge en 4 classes sous forme de pourcentage :</em> * les mineurs :</p>
+<pre class="m_r"><code>df_insee$pourcentage_mineur &lt;-
+  (((df$Ind_0_3) + (df$Ind_4_5) + (df$Ind_6_10) + (df$Ind_11_17)) / (df$Ind) *100)
+# Pour voir les informations statistiques sur cette variable :
+# dfSummary(df$pourcentage_<wbr>mineur)</code></pre>
+<ul>
+<li>les adultes de 18 à 39 ans :</li>
+</ul>
+<pre class="m_r"><code>df_insee$pourcentage_adult1 &lt;-
+  (((df$Ind_18_24) + (df$Ind_25_39)) / (df$Ind) *100)
+# Pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_adult1)</code></pre>
+<ul>
+<li>les adultes de 40 à 64 ans :</li>
+</ul>
+<pre class="m_r"><code>df_insee$pourcentage_adult2 &lt;-
+  (((df$Ind_40_54) + (df$Ind_55_64)) / (df$Ind) *100)
+# Pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_adult2)</code></pre>
+<ul>
+<li>Les adultes de plus de 65 ans (en majorité les retraités):</li>
+</ul>
+<pre class="m_r"><code>df_insee$pourcentage_retr &lt;-
+  (((df$Ind_65_79) + (df$Ind_80p)) / (df$Ind) *100)
+# Pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_retr)</code></pre>
+<p><em>% ménages pauvre</em></p>
+<pre class="m_r"><code>df_insee$pourcentage_menpauv &lt;-  ((df$Men_pauv / df$Men) *100)
+# Pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_menpauv)</code></pre>
+<p><em>% ménages propriétaire</em></p>
+<pre class="m_r"><code>df_insee$pourcentage_men_prop&lt;<wbr>- ((df$Men_prop / df$Men) *100)
+# Pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_men_prop)</code></pre>
+<p><em>% familles mono-parentale</em></p>
+<pre class="m_r"><code>df_insee$pourcentage_men_fmp&lt;- ((df$Men_fmp / df$Men) *100)
+# Pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_men_fmp)</code></pre>
+<p><em>% ménages vivant en maison</em></p>
+<pre class="m_r"><code>df_insee$pourcentage_men_mais   &lt;- ((df$Men_mais / df$Men) *100)
+# Pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_men_mais)</code></pre>
+<p><em>% ménages vivant en appartement</em></p>
+<pre class="m_r"><code>df_insee$pourcentage_men_coll   &lt;- ((df$Men_coll / df$Men) *100 )
+# pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_men_coll)</code></pre>
+<p><em>% logements sociaux par carreaux</em></p>
+<pre class="m_r"><code>df_insee$pourcentage_logsoc &lt;-  ((df$Log_soc / df$Men) *100)
+# pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_logsoc)</code></pre>
+<p><em>% ménage fiscal composé d’un seul individu </em></p>
+<pre class="m_r"><code>df_insee$pourcentage_men_1ind   &lt;- ((df$Men_1ind / df$Men) *100)
+# pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_men_1ind)</code></pre>
+<p><em>% ménage fiscal composé de 5 individus </em></p>
+<pre class="m_r"><code>df_insee$pourcentage_men_5ind   &lt;- ((df$Men_5ind / df$Men) * 100)
+# pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$<wbr>pourcentage_men_5ind)</code></pre>
+<p><em>variables remplacées par leur moyenne pour une comparaison plus aisée d’un carreau à l’autre :</em> <em>surface moyenne par individus </em></p>
+<pre class="m_r"><code>df_insee$surface_parind  &lt;- (df$Men_surf/ df$Ind)
+# pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$surface_<wbr>parind)</code></pre>
+<p><em>snv moyen par individu </em></p>
+<pre class="m_r"><code>df_insee$snv_parind  &lt;- (df$Ind_snv/ df$Ind)
+# pour voir les informations statistiques sur cette variable :
+# dfSummary(df_insee$snv_parind)</code></pre>
+<p>Le dataframe est alors composé de près de deux fois moins de colonnes qu’au depart.</p>
+<p><strong>Premières observations de celui ci :</strong> <em>resumé du dataframe obtenu</em></p>
+<pre class="m_r"><code>view(dfSummary(df_insee))</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c43e0e6c55.html</code></pre>
+<pre class="m_r"><code># dfSummary(df_insee)</code></pre>
+<p><em>Statististiques descriptives des variables et indicateurs choisis pour observer la mixité sociale</em></p>
+<pre class="m_r"><code>view(descr(df_insee))</code></pre>
+<pre><code>## Warning: `funs()` is deprecated as of dplyr 0.8.0.
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<pre><code>## Non-numerical variable(s) ignored: Depcom, geometry</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c446861d1b.html</code></pre>
+<p>Grace a la fonction view () On peut voir sous format html le tableau 
+regroupant les statistiques desciptive de chaque variables correpondant à
+ la zone selectionnée la zone analysée.Avec une autre focntion ce 
+tableau pouttait également être sauvegardé ou observé sur le panneau 
+Viewer.</p>
+</div>
+<div id="m_traitement-des-données-du-rapport-du-parc-locatif-social-rpls-géolocalisées-du-1er-janvier-2019-pour-localiser-les-logements-sociaux" class="m_section m_level4">
+<h4>Traitement des données du Rapport du Parc Locatif Social (RPLS) 
+géolocalisées du 1er janvier 2019 pour localiser les logements sociaux :</h4>
+<p><strong>Selection des variables d’intérêt :</strong> La base est 
+composée de 74 variables, pour notre cas d’étude de nombreuses variables
+ ne sont pas utiles. Cette base a pour objet la cartographie des 
+logements sociaux sur le territoire étudier. Les informations les plus 
+importantes sont donc celles concernant la géoloclisation et les données
+ temporelles. Celles ci subbissent différentes étapes de traitement pour
+ etre exploitable sous forme de carte par mapview().</p>
+<p><em>les variables géospatiales et temporelles</em></p>
+<pre class="m_r"><code>rpls_light &lt;- rpls %&gt;%
+  select(DEPCOM,
+         CODEPOSTAL,
+         QPV,
+         TYPECONST,
+         LOCAT,
+         DEP,
+         latitude,
+         longitude,
+         result_score)</code></pre>
+<p><strong>traitement sur les variables d’interets</strong> <em>La latitude et la longitude sont en caractère</em></p>
+<pre class="m_r"><code>mode(rpls_light$latitude) </code></pre>
+<pre><code>## [1] "character"</code></pre>
+<p><em>remplacer les virgules par des points </em></p>
+<pre class="m_r"><code>rpls_light$latitude &lt;- str_replace(rpls_light$<wbr>latitude, ",", ".")
+rpls_light$longitude &lt;- str_replace(rpls_light$<wbr>longitude, ",", ".")</code></pre>
+<p><em>convertir les variables latitude et longitude en numérique </em></p>
+<pre class="m_r"><code>rpls_light$latitude &lt;- as.numeric(rpls_light$<wbr>latitude)
+rpls_light$longitude &lt;- as.numeric(rpls_light$<wbr>longitude)</code></pre>
+<p><em>filtre sur la qualité de la localisation des logements sociaux (un score &lt;0.5 est considéré comme mauvais) </em></p>
+<pre class="m_r"><code>rpls_light_qualit &lt;- rpls_light %&gt;%
+  filter(result_score&gt; "0,49")</code></pre>
+<p><em>suppression des na </em></p>
+<pre class="m_r"><code>rpls_light_na &lt;- rpls_light_qualit %&gt;%
+  filter(!<a href="https://www.google.com/url?q=http://is.na&amp;source=gmail-html&amp;ust=1643905388610000&amp;usg=AOvVaw1B_OLYQ-aFbXQHsHTd9tHn" target="_blank" rel="noreferrer">is.na</a>(longitude), !<a href="https://www.google.com/url?q=http://is.na&amp;source=gmail-html&amp;ust=1643905388610000&amp;usg=AOvVaw1B_OLYQ-aFbXQHsHTd9tHn" target="_blank" rel="noreferrer">is.na</a>(latitude))</code></pre>
+<p><em>convertir les données en geo </em></p>
+<pre class="m_r"><code>rpls_light &lt;- st_as_sf(rpls_light_na, coords = c("longitude", "latitude"), crs = 4326)</code></pre>
+<p><strong>Premières observations de celui ci :</strong></p>
+<p><em>Statististiques descriptives</em></p>
+<pre class="m_r"><code>rpls_descr &lt;- descr(rpls_light, plain.ascii = FALSE, style = "grid")
+view(rpls_descr)</code></pre>
+<pre><code>## Non-numerical variable(s) ignored: TYPECONST, result_score, geometry</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c4594a740a.html</code></pre>
+<p>On peut voir sous format html le tableau regroupant les statistiques 
+descriptives de chaque variable correspondant à la zone sélectionnée la 
+zone analysée. Ce tableau peut également être sauvegardé ou observé sur 
+le panneau Viewer.</p>
+<p>###CHOIX DES TYPOLOGIES VISUELLES :</p>
+</div>
+<div id="m_les-cartes" class="m_section m_level4">
+<h4>Les Cartes</h4>
+<p>Pour observer la répartition des nouvelles locations de logement 
+sociaux, la carte nous a paru le format le plus informatif et le plus 
+facilement interprétable pour connaitre l’implantation des logements 
+sociaux. D’abord une vue générale avec l’ensemble du parc quel que soit 
+l’année de mise en service (carte_1), puis 3 cartes pour se focaliser 
+sur l’évolution de cette implantation sur les 30 dernières années 
+(carte_2 à carte_4). Les cartes suivantes aident à visualiser les 
+localisations des indicateurs en fonction de leurs valeurs sur le 
+paramètre d’études. Ces cartes permettent de compléter les graphiques.</p>
+</div>
+<div id="m_histogrammes" class="m_section m_level4">
+<h4>Histogrammes</h4>
+<p>Pour quantifier le nombre de nouveaux logements au cours du temps, 
+l’histogramme était la visualisation la plus adaptée pour compléter les 
+informations apprises par les cartes (histogramme_1).</p>
+</div>
+<div id="m_nuages-de-points" class="m_section m_level4">
+<h4>Nuages de points</h4>
+<p>Concernant les indicateurs que nous avons choisis d’observer, il nous
+ a paru opportun d’utiliser un nuage de point afin d’identifier un 
+éventuel lien entre l’indicateur et le pourcentage de logement sociaux 
+des carreaux. Et ainsi voir si l’implantion des logements niveau de vie 
+des habitants des carreaux pour chaque indicateur nous avons souhaité 
+voir les valeurs en fonction du pourcentage de logement sociaux.</p>
+</div>
+</div>
+</div>
+<div id="m_partie-3-resultats-analyses" class="m_section m_level2">
+<h2>PARTIE 3 : RESULTATS &amp; ANALYSES</h2>
+<p>Pour plus de lisibilité les analyses et les résultats sont regroupées
+ dans une même section. Chaque visualisation (carte ou graphique) sera 
+analyse juste après le résultat.</p>
+<p>Dans un premier temps nous étudieront la répartition des logements 
+sociaux sur chacune des bases utilisées pour cette étude pour : - 
+Réparation des logements sociaux et son évolution au cours des 30 
+dernières années - Observations des logements sociaux via la base RPLS :
+ pourcentage des logements sociaux par carreaux</p>
+<p>Puis nous nous focaliserons sur l’observation des 5 indicateurs de mixité sociale recueillis par carreaux<br>
+- indicateur sur le niveau de vie : les ménages : (Men_pauv) - le statut
+ d’occupation (propriétaires / locataires) - Nature du local (maison, 
+logement collectif) - les Ménages monoparentaux - le pourcentage de 
+chacune de nos 4 classes d’âge</p>
+<p>Les statistiques descriptives et résumés sont principalement là pour 
+information et pour éventuellement aider à l’interprétation des visuels 
+réalisés</p>
+<div id="m_répartition-des-logements-sociaux-et-son-évolution-au-cours-des-30-dernières-années" class="m_section m_level3">
+<h3>Répartition des logements sociaux et son évolution au cours des 30 dernières années</h3>
+<pre class="m_r"><code>#creation d'un dataframe qui regroupe les logements par date de premiere location (variable LOCAT)
+locat_tempo &lt;- rpls_light %&gt;% group_by(LOCAT) %&gt;%
+  tally()</code></pre>
+<div id="m_carte-1-répartition-des-logements-sociaux-sur-lensemble-de-la-zone-détude-sélectionnée-en-2019" class="m_section m_level4">
+<h4>carte 1 : répartition des logements sociaux sur l’ensemble de la zone d’étude sélectionnée en 2019</h4>
+<p>Afin de visualiser la repartition des logements sociaux sur la zone 
+étudiée, une carte a été realisée à l’aide de la fonction Mapview().</p>
+<pre class="m_r"><code>carte1 &lt;- mapview(
+  locat_tempo ,
+  zcol = "LOCAT",
+  at = seq (1900, 2020, 10) ,
+  legend = T
+)
+# ,col.regions = c("pink", "grey", "blue")) #test de couleurs 
+# ,col.regions = c("snow", "grey", "red")) # couleur en fonction de la date de premiere location
+# ,cex = "LOCAT") # taille du cercle  en fonction de la date de premiere location =&gt; peu lisible
+carte1</code></pre>
+<p></p><div id="m_htmlwidget-e0eb596406118c47c9eb" style="width:672px;height:480px" class="m_leaflet m_html-widget"></div>
+ On y voit l’ensemble des locations sociales au premier janvier 2019. 
+L’utilisation d’un gradient de couleur sur la date de première location 
+qui permet de visualiser l’évolution des implantations entre 1900 et 
+2019. Cette première carte permet un aperçu global. Certains quartiers 
+semblent dépourvus de logement sociaux : autour de l’hippodrome (côte 
+d’or, petit-port), Le Landreau et l’ouest du boulevard Schumann. 
+L’implantation est inégale et pas de même densité selon les quartiers. 
+En effet a contrario, on remarque que les quartiers dit “difficiles” 
+sont très dense en logement sociaux (Bellevue, dervalières, la 
+bottière). On y voit des implantations sous forme de grappes.<p></p>
+</div>
+<div id="m_carte-2-répartition-des-logements-sociaux-de-première-mise-en-location-entre-1989-et-1998" class="m_section m_level4">
+<h4>carte 2 : répartition des logements sociaux de première mise en location entre 1989 et 1998</h4>
+<pre class="m_r"><code>locat_tempo_1989_1998 &lt;- locat_tempo %&gt;%
+ filter(LOCAT&gt;=1989 &amp; LOCAT&lt;1999)
+
+carte_2 &lt;- mapview(locat_tempo_1989_1998, zcol = "LOCAT", legend = T,at = seq (1989, 1998, 2))
+carte_2</code></pre>
+<div id="m_htmlwidget-63f9a9956939848f9d68" style="width:672px;height:480px" class="m_leaflet m_html-widget"></div>
+
+</div>
+<div id="m_carte-3-répartition-des-logements-sociaux-de-première-mise-en-location-entre-1999-et-2008" class="m_section m_level4">
+<h4>carte 3 : répartition des logements sociaux de première mise en location entre 1999 et 2008</h4>
+<pre class="m_r"><code>locat_tempo_1999_2008 &lt;-  locat_tempo %&gt;%
+  filter( LOCAT&gt;=1999 &amp; LOCAT&lt;2009)
+carte_3 &lt;- mapview(locat_tempo_1999_2008, zcol = "LOCAT", legend = T,at = seq (1999, 2008, 2))
+carte_3</code></pre>
+<div id="m_htmlwidget-be6045995938aabb0369" style="width:672px;height:480px" class="m_leaflet m_html-widget"></div>
+
+</div>
+<div id="m_carte-4-répartition-des-logements-sociaux-de-première-mise-en-location-entre-2009-et-2019" class="m_section m_level4">
+<h4>carte 4 : répartition des logements sociaux de première mise en location entre 2009 et 2019</h4>
+<pre class="m_r"><code>locat_tempo_2009_2018 &lt;-  locat_tempo %&gt;%
+  filter( LOCAT&gt;=2009 &amp; LOCAT&lt;2020)
+carte_4 &lt;- mapview(locat_tempo_2009_2018, zcol = "LOCAT", legend = T,at = seq (2009, 2019, 2))
+carte_4</code></pre>
+<p></p><div id="m_htmlwidget-d5e4105cbdf9912e07e7" style="width:672px;height:480px" class="m_leaflet m_html-widget"></div>
+ <em>Nantes:</em><p></p>
+<p>Dans les années 1990, les implantations sont plus nombreuses dans les
+ quartiers les plus éloignés du centre-ville de Nantes. Elles sont 
+notamment très denses à Bellevue (à l’ouest) ou Saint-joseph-de-porterie
+ (au nord). Quelques implantations mais bien moins denses sont reparties
+ sur la ville mais aucune dans l’ultra centre de Nantes. Les logements 
+sociaux sont très peu nombreux dans les quartiers sud de la ville. Dans 
+les années 2000: les constructions sont plus nombreuses, les 
+implantations semblent se rapprocher du centre mais toujours très peu 
+dans le centre lorsque l’on compare aux autres quartiers. De 2010 à 
+maintenant, les premières locations sont plus nombreuses que la décennie
+ précédente. Les implantations sont assez similaires aux autres années 
+qui viennent d’être observées. Quelques quartiers déjà riches en 
+logements sociaux semblent se densifier: Bellevue, Dervallieres, La 
+Haluchere. Lorsque l’on compare les 3 cartes, on réalise que le nombre 
+de première mise en location semble augmenter sur chaque décennie. Le 
+maillage est de plus en plus fin. Le développement des logements sociaux
+ sur Nantes est très fort. Quel que soit la période les nouvelles 
+locations sont moins nombreuses en centre-ville. Celui-ci a une 
+croissance bien plus lente en implantations de ce type de logements.</p>
+<p><em>Métropole Nantaise:</em></p>
+<p>Sur les trois cartes précédentes, malgré le filtre réalisé sur la 
+zone d’étude, on peut constater que nous avons des valeurs en dehors de 
+la métropole Nantaise. Si l’on se focalise uniquement sur les locations 
+de la métropole, on constate qu’il y a au fur et à mesure des années de 
+plus en plus de logements sociaux qui se situe dans les communes autour 
+de Nantes. Nantes a toujours une concentration très élevé de nouveau 
+logements sociaux.</p>
+<p><em>Département 44:</em></p>
+<p>Sur les trois cartes précédentes, on peut voir que les logements 
+sociaux sont présents sur tout le département mais avec une très forte 
+concentration sur Nantes, la métropole Nantaise, ainsi que du côté de 
+Saint Nazaire.</p>
+</div>
+<div id="m_graphique-1-histogramme-du-nombre-de-locations-de-logements-sociaux-au-fil-des-années" class="m_section m_level4">
+<h4>Graphique 1 : histogramme du nombre de locations de logements sociaux au fil des années</h4>
+<pre class="m_r"><code>nb_loc &lt;- rpls_light$LOCAT
+
+hist(
+  nb_loc,
+  breaks = seq(from = 1900, to = 2020, length = 10),
+  col = "grey",
+  border = "white",
+  ylab = "Nouvelles locations",
+  xlab = "Année",
+  ylim = c(0, 25000),
+  labels = TRUE,
+  main = "Nombre de nouvelles mise en location
+  de logement sociaux chaque année de 1900 à 2020"
+)</code></pre>
+<p><img width="672"></p>
+<p><em>Nantes:</em></p>
+<p>De nombreux logements ont été mis en première location à la fin des 
+années 50. Il est possible que cela corresponde à l’après-guerre où 
+Nantes a été très fortement touchée par les bombardements alliés. Il a 
+fallu reloger de nombreux Nantais mais aussi une nouvelle main d’œuvre 
+arrivée pour ces constructions. Le pic d’augmentation apparait dans les 
+années 1970, puis le nombre de nouvelles locations diminue jusqu’au 
+début des années 2000 où l’on voit un second pic apparaitre, ne 
+dépassant pas le premier.</p>
+<p><em>Métropole Nantaise:</em></p>
+<p>De nombreux logements ont été mis en première location à partir des 
+années 1960. Le premier pic d’augmentation apparait dans les années 
+1970, puis le nombre diminue jusqu’au début des années 2000 pour 
+réaugmenter et dépasser le pic précédent jusqu’à maintenant</p>
+<p><em>Département 44:</em></p>
+<p>De nombreux logements ont été mis en première location à partir des 
+années 1960. Le pic d’augmentation apparait entre les années 1970 et 
+1980, puis le nombre diminue jusqu’au début des années 2000 pour 
+réaugmenter et dépasser le pic précédent.</p>
+</div>
+</div>
+<div id="m_observations-des-logements-sociaux-via-la-base-insee-pourcentage-des-logements-sociaux-par-carreaux" class="m_section m_level3">
+<h3>Observations des logements sociaux via la base INSEE: pourcentage des logements sociaux par carreaux</h3>
+<div id="m_statistiques-descriptives-et-résumé-de-cette-variable" class="m_section m_level4">
+<h4>Statistiques descriptives et résumé de cette variable</h4>
+<pre class="m_r"><code># descr(df_insee$pourcentage_<wbr>logsoc)
+view(descr(df_insee$<wbr>pourcentage_logsoc))</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c450a96680.html</code></pre>
+<pre class="m_r"><code># dfSummary(df_insee$<wbr>pourcentage_logsoc)
+view(dfSummary(df_insee$<wbr>pourcentage_logsoc))</code></pre>
+<pre><code>## df_insee$pourcentage_logsoc was converted to a data frame</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c47f03394.html</code></pre>
+</div>
+</div>
+<div id="m_observation-de-lindicateur-sur-le-niveau-de-vie-les-ménages-pauvres-men_pauv" class="m_section m_level3">
+<h3>Observation de l’indicateur sur le niveau de vie : les ménages pauvres (Men_pauv)</h3>
+<div id="m_définition-chiffres-et-statistiques" class="m_section m_level4">
+<h4>Définition &amp; chiffres et statistiques</h4>
+<pre class="m_r"><code>paste("Un individu ou ménage est considéré comme pauvre lorsqu'il vit dans un ménage dont le niveau de vie est en dessous du seuil de pauvreté (c'est à dire 60% du niveau de vie médian de la population). En 2015, il correspondait à 1015€/mois pour une personne seule.")</code></pre>
+<pre><code>## [1] "Un individu ou ménage est considéré comme pauvre lorsqu'il vit dans un ménage dont le niveau de vie est en dessous du seuil de pauvreté (c'est à dire 60% du niveau de vie médian de la population). En 2015, il correspondait à 1015\200/mois pour une personne seule."</code></pre>
+<pre class="m_r"><code>paste("Dans la base de 2019 sur le parc locatif social géolocalisé, on dénombre", round(sum(df_insee$Men)), "ménages dont", round(sum(df_insee$Men_pauv)), "ménages pauvres.") </code></pre>
+<pre><code>## [1] "Dans la base de 2019 sur le parc locatif social géolocalisé, on dénombre 269947 ménages dont 31915 ménages pauvres."</code></pre>
+<pre class="m_r"><code>paste("Cela représente",round((sum(df_<wbr>insee$Men_pauv)/sum(df_insee$<wbr>Men))*100), "% de ménages pauvres parmi l'ensemble des ménages fiscaux.")</code></pre>
+<pre><code>## [1] "Cela représente 12 % de ménages pauvres parmi l'ensemble des ménages fiscaux."</code></pre>
+<pre class="m_r"><code>view(descr(df_insee$<wbr>pourcentage_menpauv))</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c4393e1c53.html</code></pre>
+<pre class="m_r"><code>view(dfSummary(df_insee$<wbr>pourcentage_menpauv))</code></pre>
+<pre><code>## df_insee$pourcentage_menpauv was converted to a data frame</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c46d622df3.html</code></pre>
+<pre class="m_r"><code># descr(df_insee$pourcentage_<wbr>menpauv)
+# dfSummary(df_insee$<wbr>pourcentage_menpauv)</code></pre>
+</div>
+<div id="m_graphique-2-nuage-de-point-representant-le-pourcentage-de-logements-sociaux-en-fonction-du-pourcentage-de-menages-pauvres" class="m_section m_level4">
+<h4>Graphique 2 : nuage de point representant le pourcentage de logements sociaux en fonction du pourcentage de menages pauvres</h4>
+<pre class="m_r"><code>qplot(pourcentage_menpauv,
+      pourcentage_logsoc,
+      data = df_insee,
+      main = "% logements sociaux selon du % de menages vivant sous le seuil de pauvreté",
+      colour = I("blue")
+      )</code></pre>
+<p><img width="672"></p>
+<p><em>Analyse sur Nantes:</em> Sur ce nuage de point, un peu constater 
+une tendance à la hausse. En effet, on voit clairement que plus le 
+pourcentage de logement sociaux (sur les carreaux) augmente plus le 
+pourcentage de ménage pauvre augmente. Il semble y avoir un lien entre 
+pauvreté et logements sociaux. Il est intéressant de remarquer que 
+quelques carreaux présentent un taux de ménages pauvres de plus de 60 % 
+(pour rappel la moyenne est de 16% sur Nantes). Ces ménages sont dans 
+des carreaux avec un pourcentage de logement sociaux nul. <em>Analyse sur la Métropole Nantaise:</em>
+ Sur ce nuage de point, un peu constater une tendance à la hausse. En 
+effet, on peut voir que plus le pourcentage de logement sociaux (sur les
+ carreaux) augmente on voit que le pourcentage de ménage pauvre augmente
+ également.</p>
+<p><em>Analyse sur le Département 44:</em> Sur ce nuage de point, on 
+peut constater une tendance à la hausse. En effet, on peut voir que plus
+ le pourcentage de logement sociaux (par carreaux) augmente plus le 
+pourcentage de ménage pauvre augmente. Il est intéressant de remarquer 
+que quelques carreaux présentent un taux de ménages pauvres bien 
+au-dessus de la moyenne des 11 % de la ville. Ces ménages sont dans des 
+carreaux avec un fort pourcentage de logement sociaux. Dans cette base, 
+on peut constater qu’il y a une forte concentration de points en bas à 
+gauche qui représente les carreaux avec un faible pourcentage de 
+logement sociaux et un faible pourcentage de ménage pauvre.</p>
+</div>
+</div>
+<div id="m_observation-de-lindicateur-le-statut-doccupation-propriétaires-locataires" class="m_section m_level3">
+<h3>Observation de l’indicateur le statut d’occupation (propriétaires / locataires)</h3>
+<div id="m_les-chiffres-concernant-lindicateur-ménages-propriétaires" class="m_section m_level4">
+<h4>Les chiffres concernant l’indicateur ménages propriétaires</h4>
+<pre class="m_r"><code>view(dfSummary(df_insee$<wbr>pourcentage_men_prop))</code></pre>
+<pre><code>## df_insee$pourcentage_men_prop was converted to a data frame</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c42ead3ba7.html</code></pre>
+<pre class="m_r"><code>view(descr(df_insee$<wbr>pourcentage_men_prop))</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c43cd653d8.html</code></pre>
+<pre class="m_r"><code># dfSummary(df_insee$<wbr>pourcentage_men_prop)
+# descr(df_insee$pourcentage_<wbr>men_prop)</code></pre>
+</div>
+<div id="m_graphique-3-nuage-de-point-représentant-les-pourcentages-de-logement-sociaux-en-fonction-du-pourcentage-de-ménage-propriétaire" class="m_section m_level4">
+<h4>Graphique 3 : Nuage de point représentant les pourcentages de 
+logement sociaux en fonction du pourcentage de ménage propriétaire**</h4>
+<pre class="m_r"><code>qplot(
+  pourcentage_men_prop,
+  pourcentage_logsoc,
+  data = df_insee,
+  main = " % logements sociaux en fonction % propriétaires par carreaux",
+  colour = I("grey")
+)</code></pre>
+<p><img width="672"> <em>Analyse sur Nantes:</em> A l’inverse du nuage 
+de point précédent, on constate une légère tendance à la baisse. Plus la
+ proportion de logement sociaux par carreaux est fort, plus le nombre de
+ propriétaires diminue et ce jusqu’à atteindre 0%. Il semble y avoir une
+ concentration de carreaux avec une valeur de 0% de logements sociaux 
+lorsque le pourcentage de ménage propriétaire passe au-dessus des 25%</p>
+<p><em>Analyse sur la Métropole Nantaise:</em> A l’inverse du nuage de 
+point concernant les ménages pauvres, on constate une tendance à la 
+baisse. Plus le pourcentage de logement sociaux augmente (sur les 
+carreaux) plus le pourcentage de ménage propriétaire diminue juste 
+atteindre 0%. Plus il y a de ménage propriétaire, moins il y a de 
+logement sociaux.</p>
+<p><em>Analyse sur le Département 44:</em> A l’inverse du nuage de point
+ concernant les ménages pauvres, on constate que ces deux paramètres 
+sont anti proportionnels. Plus le pourcentage de logement sociaux 
+augmente (sur les carreaux) plus le pourcentage de ménage propriétaire 
+diminue juste atteindre 0%. Plus il y a de ménage propriétaire, moins il
+ y a de logement sociaux. On est proche de 100 % de propriétaire lorsque
+ le taux de logements sociaux par carreaux est de 0% et inversement</p>
+</div>
+</div>
+<div id="m_observation-de-lindicateur-nature-du-local-logement-collectif-ou-individuel" class="m_section m_level3">
+<h3>Observation de l’indicateur : Nature du local (logement collectif ou individuel)</h3>
+<div id="m_les-chiffres-sur-la-nature-du-local" class="m_section m_level4">
+<h4>Les chiffres sur la nature du local</h4>
+<pre class="m_r"><code>paste("Nombre de ménage:", round(sum(df$Men)), "ménages")</code></pre>
+<pre><code>## [1] "Nombre de ménage: 269947 ménages"</code></pre>
+<pre class="m_r"><code>paste("Nombre de ménage en logement individuel (maison):", round(sum(df$Men_mais)), "ménages")</code></pre>
+<pre><code>## [1] "Nombre de ménage en logement individuel (maison): 124014 ménages"</code></pre>
+<pre class="m_r"><code>view(descr(df_insee$<wbr>pourcentage_men_coll))</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c478b248a4.html</code></pre>
+<pre class="m_r"><code># descr(df_insee$pourcentage_<wbr>men_coll)</code></pre>
+</div>
+<div id="m_graphique-4-nuage-de-point-représentant-le-pourcentage-de-ménage-en-immeuble-en-fonction-du-pourcentage-de-logements-sociaux" class="m_section m_level4">
+<h4>Graphique 4 : Nuage de point représentant le pourcentage de ménage en immeuble en fonction du pourcentage de logements sociaux</h4>
+<pre class="m_r"><code>ggplot(df_insee, aes(x = pourcentage_men_coll, y = pourcentage_logsoc)) +
+  geom_point(size = 2.5)</code></pre>
+<p><img width="672"></p>
+<p><em>Analyse sur Nantes:</em> Nous souhaitons voir avec les deux 
+nuages de points ci-dessus s’il y a un lien entre les logements sociaux 
+et leur type d’habitation. On constate une légère tendance à la hausse 
+du pourcentage de logement sociaux lorsque le pourcentage de ménage en 
+logement collectif (immeuble) dans un carreau augmente.</p>
+<p><em>Analyse sur la Métropole Nantaise:</em> Nous souhaitons voir avec
+ les deux nuages de points ci-dessus s’il y a un lien entre les 
+logements sociaux et leur type d’habitation. On constate une légère 
+tendance à la hausse du pourcentage de logement sociaux lorsque le 
+pourcentage de ménage en logement collectif (immeuble) dans un carreau 
+augmente.</p>
+<p><em>Analyse sur le Département 44:</em> Nous souhaitons voir avec les
+ deux nuages de points ci-dessus s’il y a un lien entre les logements 
+sociaux et leur type d’habitation. On constate une légère tendance à la 
+hausse du pourcentage de logement sociaux lorsque le pourcentage de 
+ménage en logement collectif (immeuble) dans un carreau augmente.</p>
+</div>
+</div>
+<div id="m_observation-de-lindicateur-les-ménages-monoparentaux" class="m_section m_level3">
+<h3>Observation de l’indicateur : les Ménages monoparentaux</h3>
+<div id="m_les-chiffres-clés" class="m_section m_level4">
+<h4>Les chiffres clés</h4>
+<pre class="m_r"><code>paste("Nombre de familles monoparentales :", round(sum(df$Men_fmp)),"<wbr>ménages")</code></pre>
+<pre><code>## [1] "Nombre de familles monoparentales : 27404 ménages"</code></pre>
+<pre class="m_r"><code>paste("Nombre de ménages ficaux:", round(sum(df$Men)),"ménages")</code></pre>
+<pre><code>## [1] "Nombre de ménages ficaux: 269947 ménages"</code></pre>
+<pre class="m_r"><code>paste("Soit un pourcentage moyen de familles monoparentales par carreaux est de",  round(mean(df_insee$<wbr>pourcentage_men_fmp)),"% sur le territoire étudié ")</code></pre>
+<pre><code>## [1] "Soit un pourcentage moyen de familles monoparentales par carreaux est de 8 % sur le territoire étudié "</code></pre>
+<pre class="m_r"><code>view(dfSummary(df_insee$<wbr>pourcentage_men_fmp))</code></pre>
+<pre><code>## df_insee$pourcentage_men_fmp was converted to a data frame</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c468d225f4.html</code></pre>
+<pre class="m_r"><code>view(descr(df_insee$<wbr>pourcentage_men_fmp))</code></pre>
+<pre><code>## Switching method to 'browser'</code></pre>
+<pre><code>## Output file written: C:\Users\CFOUQUE\AppData\<wbr>Local\Temp\RtmpSq8fNm\<wbr>file62c49e03348.html</code></pre>
+<pre class="m_r"><code># dfSummary(df_insee$<wbr>pourcentage_men_fmp)
+# descr(df_insee$pourcentage_<wbr>men_fmp)</code></pre>
+</div>
+<div id="m_graphique-5-pourcentage-de-famille-monoparentale-par-carreaux-selon-le-pourcentage-de-logement-sociaux" class="m_section m_level4">
+<h4>Graphique 5 : pourcentage de famille monoparentale par carreaux selon le pourcentage de logement sociaux</h4>
+<pre class="m_r"><code>qplot( pourcentage_men_fmp,
+      pourcentage_logsoc,
+      data = df_insee,
+      main = "Proportion de logements sociaux en fonction 
+de la proportion de familles monoparentales",
+      colour = I("grey25")
+      )</code></pre>
+<p><img width="672"> <em>Analyse sur Nantes:</em> La ville a une moyenne
+ de 9 % de famille monoparentale par carreaux. On peut voir qu il y a un
+ lien entre ces deux facteurs. Mis à part quelques carreaux isolés la 
+plupart des carreaux qui ont des fortes proportions de logement sociaux 
+ont également de fortes proportions de familles monoparentales. On peut 
+même voir des taux de 30 % de famille monoparentales lorsque presque 
+l’ensemble des logements est social.</p>
+<p><em>Analyse sur la Métropole Nantaise:</em> La métropole a une 
+moyenne de 8% de famille monoparentale par carreaux. On peut voir qu il y
+ a un lien entre ces deux facteurs. Mis a part quelques carreaux isolés 
+la plupart des carreaux qui ont des fortes proportions de logement 
+sociaux ont également de frote proportions de famille monoparentales. On
+ peut même voir des taux à partir de 10 - 15% de famille monoparentales 
+lorsque presque l’ensemble des logements est social.</p>
+<p><em>Analyse sur le Département 44:</em> Le département a en moyenne 
+de 6% de famille monoparentales par carreaux. On peut voir un carreau à 
+60% de ménage monoparentales et à 75% de logement sociaux. C’est un 
+point isolé mais cela illustre une tendance. Les carreaux ayant le 
+pourcentage le plus fort en famille monoparentale ont également des 
+proportions en logement sociaux bien plus élevés que la moyenne de la 
+ville. On peut tout de même voir une proportion non négligeable de 
+famille monoparentale ne vivant pas dans des logements sociaux.</p>
+</div>
+</div>
+<div id="m_observation-des-4-classes-dâges-créées" class="m_section m_level3">
+<h3>Observation des 4 classes d’âges créées :</h3>
+<div id="m_chiffres-des-différentes-classes-dâge" class="m_section m_level4">
+<h4>Chiffres des différentes classes d’âge</h4>
+<pre class="m_r"><code>paste("Dans cette base, on dénombre", round(sum(df$Ind_0_3,df$Ind_4_<wbr>5,df$Ind_6_10,df$Ind_11_17)), "individus mineurs sur", round(sum(df$Ind)), "individus")</code></pre>
+<pre><code>## [1] "Dans cette base, on dénombre 130775 individus mineurs sur 595458 individus"</code></pre>
+<pre class="m_r"><code>paste("Ce qui représente", round((sum(df$Ind_0_3,df$Ind_<wbr>4_5,df$Ind_6_10,df$Ind_11_17)/<wbr>sum(df$Ind))*100), "% de mineur dans cette base.")</code></pre>
+<pre><code>## [1] "Ce qui représente 22 % de mineur dans cette base."</code></pre>
+<pre class="m_r"><code>paste("Dans cette base, on dénombre", round(sum(df$Ind_18_24,df$Ind_<wbr>25_39)), "individus entre 18 et 39 ans sur", round(sum(df$Ind)), "individus")</code></pre>
+<pre><code>## [1] "Dans cette base, on dénombre 162885 individus entre 18 et 39 ans sur 595458 individus"</code></pre>
+<pre class="m_r"><code>paste("Ce qui représente", round((sum(df$Ind_18_24,df$<wbr>Ind_25_39)/sum(df$Ind))*100), "% de 18-39 ans dans cette base.")</code></pre>
+<pre><code>## [1] "Ce qui représente 27 % de 18-39 ans dans cette base."</code></pre>
+<pre class="m_r"><code>paste("Dans cette base, on dénombre", round(sum(df$Ind_40_54,df$Ind_<wbr>55_64)), "individus entre 40 et 64 ans sur", round(sum(df$Ind)), "individus")</code></pre>
+<pre><code>## [1] "Dans cette base, on dénombre 188086 individus entre 40 et 64 ans sur 595458 individus"</code></pre>
+<pre class="m_r"><code>paste("Ce qui représente", round((sum(df$Ind_40_54,df$<wbr>Ind_55_64)/sum(df$Ind))*100), "% de 40-64 ans dans cette base.")</code></pre>
+<pre><code>## [1] "Ce qui représente 32 % de 40-64 ans dans cette base."</code></pre>
+<pre class="m_r"><code>paste("Dans cette base, on dénombre", round(sum(df$Ind_65_79,df$Ind_<wbr>80p)), "individus de plus de 64 ans sur", round(sum(df$Ind)), "individus")</code></pre>
+<pre><code>## [1] "Dans cette base, on dénombre 95929 individus de plus de 64 ans sur 595458 individus"</code></pre>
+<pre class="m_r"><code>paste("Ce qui représente", round((sum(df$Ind_65_79,df$<wbr>Ind_80p)/sum(df$Ind))*100), "% de plus de 64 ans dans cette base.")</code></pre>
+<pre><code>## [1] "Ce qui représente 16 % de plus de 64 ans dans cette base."</code></pre>
+</div>
+<div id="m_graphique-7-proportion-de-logements-sociaux-en-fonction-de-la-proportion-de-mineur" class="m_section m_level4">
+<h4>graphique 7 : Proportion de logements sociaux en fonction de la proportion de mineur</h4>
+<pre class="m_r"><code>plot.new() 
+par(mar=c(4,4,3,5)) 
+plot(x=df_insee$pourcentage_<wbr>mineur, y=df_insee$pourcentage_logsoc, col="blue",axes=F,xlab="",<wbr>ylab="") 
+par(new = T) 
+plot(df_insee$pourcentage_<wbr>retr, y=df_insee$pourcentage_logsoc, col="grey25",axes=F,xlab="",<wbr>ylab="",ylim=c(0,100)) 
+par(new = T) 
+plot(df_insee$pourcentage_<wbr>adult1, y=df_insee$pourcentage_logsoc, col="red",axes=F,xlab="",ylab=<wbr>"",ylim=c(0,100)) 
+par(new = T) 
+plot(df_insee$pourcentage_<wbr>adult2, y=df_insee$pourcentage_logsoc, col="green",axes=F,xlab="",<wbr>ylab="",ylim=c(0,100)) 
+axis(2, ylim=c(0,100),col="black",col.<wbr>axis="black",at=seq(0, 100, by=10)) 
+mtext("% logement sociaux",side=2,line=2.5,col="<wbr>black") 
+axis(1 , ylim=c(0,100),col="black",col.<wbr>axis="black",at=seq(0, 100, by=10)) 
+mtext("Axe pourcentage âge",side=1,line=2.5,col="<wbr>black") </code></pre>
+<p><img width="672"></p>
+<pre class="m_r"><code># le  1  indique l'axe du bas, un 3 aurait été pour en haut </code></pre>
+<p><em>Nantes:</em> Avec ce graphique, nous pouvons voir comment sont 
+répartis les individus sur les carreaux en fonction du pourcentage de 
+logement sociaux. Nous voyons que peu importe le pourcentage de logement
+ sociaux sur les carreaux, la répartition par âge reste relativement la 
+même.</p>
+<p><em>Métropole Nantaise:</em> Avec ce graphique, nous pouvons voir 
+comment sont répartis les individus sur les carreaux en fonction du 
+pourcentage de logement sociaux. Nous voyons que peu importe le 
+pourcentage de logement sociaux sur les carreaux, la répartition par âge
+ reste relativement la même.</p>
+<p><em>Département 44:</em> Avec ce graphique, nous pouvons voir comment
+ sont répartis les individus sur les carreaux en fonction du pourcentage
+ de logement sociaux. Nous voyons que peu importe le pourcentage de 
+logement sociaux sur les carreaux, la répartition par âge reste 
+relativement la même.</p>
+</div>
+<div id="m_carte-5-pourcentage-de-logement-sociaux-par-carreaux" class="m_section m_level4">
+<h4>carte 5 : pourcentage de logement sociaux par carreaux</h4>
+<pre class="m_r"><code>df_logsoc &lt;-  df_insee %&gt;%
+  filter(Log_soc &gt; 0)
+mapview(df_logsoc, zcol = "pourcentage_logsoc", legend = T)</code></pre>
+<p></p><div id="m_htmlwidget-5d25d2ff164586282ca7" style="width:672px;height:480px" class="m_leaflet m_html-widget"></div>
+ <em>Nantes:</em> On constat ici que lorsque nous nous intéressons 
+seulement aux carreaux contenant des logements sociaux, on peut voir que
+ les carreaux sont un peu dispersé partout sur Nantes. Toutefois, on 
+peut voir que la concentration de logement sociaux dans le centre de 
+Nantes est très faible en comparaison à la périphérie de Nantes, 
+principalement lorsque l’on est près de Saint Herblain (Bellevue, 
+Dervallières, au nord-est de Nantes (quartier Halluchère/Bottière), 
+Saint-joseph de porterie et un peu à proximité de l’île de Nantes 
+(Quartier Malakof)<p></p>
+<p><em>Métropole Nantaise:</em> Sur cette carte, on peut constater que 
+les logements sociaux sont répartis sur l’ensemble de la métropole. 
+Cependant, la concentration de logements sociaux par carreaux est plus 
+élevé sur la périphérie de Nantes que dans le centre de Nantes et dans 
+les communes au alentour de Nantes.</p>
+<p><em>Département 44:</em> Les logements sociaux semblent être répartis
+ sur l’ensemble du territoire du département avec deux zones à fortes 
+concentrations de logements sociaux: Nantes avec la métropole Nantaise 
+et Saint Nazaire.</p>
+<p><em>Constat général (commun aux trois cartes: Nantes, Métropole Nantaise et Département)</em>
+ On compte environ 16% d’individus de plus de 64 ans et lorsqu’on 
+regarde les carreaux où le taux de concentration de logements sociaux 
+est élevé, le pourcentage d’individus de plus de 64 ans diminue en 
+dessous de 5%. A contrario, il y a plus de mineurs dans ces quartiers. 
+Il semble s’agir de familles plutôt nombreuses. On peut également 
+constater que sur les carreaux avec une forte concentration de logement 
+sociaux, il y a très peu de logement individuel - maison (forte 
+concentration de logement collectif), et également très peu de ménage 
+sont propriétaires.</p>
+<p>###conclusion sur nos résultats :</p>
+<p>Les logements sociaux se situent principalement autour du centre des 
+grandes villes, notamment Saint Nazaire et Nantes. La proportion de 
+logements sociaux est également assez élevée aux niveaux des communes 
+voisines. L’implantation de puis 30 ans est légèrement plus homogène 
+mais tout de même inégales. En effet, certains quartiers semblent 
+dépourvus de logement sociaux tandis que d’autres voit les implantations
+ continuer d’augmenter. Cela semble un bon levier pour favoriser la 
+mixité sociale.</p>
+<p>On a pu constater que plus il y a de ménages pauvres, plus il y a de 
+logement sociaux. Et inversement plus il y a des ménages propriétaires 
+et moins il y a de logement sociaux. En effet, dans les zones fortement 
+pourvus en logement sociaux, on y trouve plus de locataires mais 
+également plus de personnes vivant en logement collectif, c’est-à-dire 
+en immeuble. De plus, dans ces quartiers dense en logements sociaux la 
+moyenne d’âge semble plus basse, le pourcentage de personne de plus de 
+65 ans y ait bien plus faible que dans la moyenne du territoire. Ces 
+constats démontrent que la construction de logement sociaux et leur 
+implantation ces dernières années, n’a pas contribué pleinement la 
+mixité sociale.</p>
+</div>
+</div>
+</div>
+<div id="m_partie-4-conclusion-du-projet" class="m_section m_level2">
+<h2>PARTIE 4 : CONCLUSION DU PROJET</h2>
+<p>Ce projet nous a tout d’abord permis de réaliser une étude spatiale à
+ base de cartographie et de graphique pour la première fois. Il 
+s’agissait d’un réel cas pratique répondant à une problématique 
+d’actualité sociétale le rendant d’autant plus intéressant.</p>
+<p>Nous avons rencontré plusieurs difficultés. Le travail d’équipe à 
+distance, sur la période estivale a rendu plus difficile les échanges en
+ temps réels. A cause de ce décalage. Il nous est arrivé de modifier le 
+travail de l’autre binôme sans pouvoir toujours le concerté. Pour 
+optimiser notre temps, il nous aurait fallu travailler sur des outils 
+plus adaptés au travail collaboratif tel que GIT, mais nous n’ayant 
+jamais été formé sur cet outil, la prise en main nous a paru trop 
+longue. Malgré une investigation poussée, nous n’avons pas su comment 
+nettoyer complètement le jeux de données RPLS.Il reste quelques point 
+abérants, qui situent des logement a Bordeaux ou Rennes par exemple. Une
+ autre difficulté était plutôt d’ordre technique, nous avons rencontré 
+des difficultés sur la programmation.Notamment pour la partie 
+automatisation. Nous avons exploré la piste de Shiny et plus précisément
+ Shinydashboard qui aurait permis de rendre automatisable et interactif 
+notre travail. Mais nos compétences en R ne nous ont pas permis 
+d’aboutir à un rendu correct. Nous avons alors tenté d’automatiser là 
+l’aide de fonctions mais le resultat est améliorable.</p>
+<p>Ce module sur l’approche des données spatiales et temporelles et en 
+particulier ce projet nous ont permis de découvrir la cartographie sous R
+ et de mettre en pratique pour la première fois dans un cas concret les 
+notions vues en cours et d’en découvrir d’autres.</p>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</body></html>
